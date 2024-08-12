@@ -97,7 +97,7 @@ class DataPreprocessing:
             upper_bound = q3 + 1.5 * iqr
             # Filter out the outliers
             dataframe = dataframe.filter((col(col_name) >= lower_bound) &
-                                         (col(col_name) <= upper_bound))
+                                        (col(col_name) <= upper_bound))
         return dataframe
 
     """Function to Remove Outliers using Z-Score Method"""
@@ -108,9 +108,9 @@ class DataPreprocessing:
         for col_name in columns:
             # Calculate mean and standard deviation for the column
             mean_value = dataframe.selectExpr(
-                f'mean({col_name}) as mean').collect()[0]['mean']
+                f"mean({col_name}) as mean").collect()[0]['mean']
             stddev_value = dataframe.selectExpr(
-                f'stddev({col_name}) as stddev').collect()[0]['stddev']
+                f"stddev({col_name}) as stddev").collect()[0]['stddev']
 
             # Remove outliers using Z-score
             threshold = 3 * stddev_value
@@ -132,7 +132,7 @@ class DataPreprocessing:
 
         # Apply MinMaxScaler to the vector column
         scaler = MinMaxScaler(inputCol="UnscaledFeatures",
-                              outputCol="features")
+                            outputCol="features")
 
         # Create a pipeline
         pipeline = Pipeline(stages=[assembler, scaler])
@@ -278,13 +278,13 @@ if __name__ == "__main__":
 
     for column in numeric_cols:
         mean_value_before = dataframe.selectExpr(
-            f'mean({column}) as mean').collect()[0]['mean']
+            f"mean({column}) as mean").collect()[0]['mean']
         stddev_value_before = dataframe.selectExpr(
-            f'stddev({column}) as stddev').collect()[0]['stddev']
+            f"stddev({column}) as stddev").collect()[0]['stddev']
         # Plotting before outlier removal
         plt.figure(figsize=(10, 6))
         plt.hist(dataframe.select(column).rdd.flatMap(lambda x: x).collect(),
-                 bins=20, color='skyblue', edgecolor='black')
+                bins=20, color='skyblue', edgecolor='black')
         plt.axvline(x=mean_value_before, color='red',
                     linestyle='--', label='Mean')
         plt.axvline(x=mean_value_before + 3 * stddev_value_before,
@@ -307,13 +307,13 @@ if __name__ == "__main__":
 
     for column in numeric_cols:
         mean_value_after = dataframe.selectExpr(
-            f'mean({column}) as mean').collect()[0]['mean']
+            f"mean({column}) as mean").collect()[0]['mean']
         stddev_value_after = dataframe.selectExpr(
-            f'stddev({column}) as stddev').collect()[0]['stddev']
+            f"stddev({column}) as stddev").collect()[0]['stddev']
         # Plotting before outlier removal
         plt.figure(figsize=(10, 6))
         plt.hist(dataframe.select(column).rdd.flatMap(lambda x: x).collect(),
-                 bins=20, color='skyblue', edgecolor='black')
+                bins=20, color='skyblue', edgecolor='black')
         plt.axvline(x=mean_value_after, color='red',
                     linestyle='--', label='Mean')
         plt.axvline(x=mean_value_after + 3 * stddev_value_after,
@@ -342,13 +342,13 @@ if __name__ == "__main__":
 
     for column in numeric_cols:
         mean_value_after = dataframe.selectExpr(
-            f'mean({column}) as mean').collect()[0]['mean']
+            f"mean({column}) as mean").collect()[0]['mean']
         stddev_value_after = dataframe.selectExpr(
-            f'stddev({column}) as stddev').collect()[0]['stddev']
+            f"stddev({column}) as stddev").collect()[0]['stddev']
         # Plotting before outlier removal
         plt.figure(figsize=(10, 6))
         plt.hist(dataframe.select(column).rdd.flatMap(lambda x: x).collect(),
-                 bins=20, color='skyblue', edgecolor='black')
+                bins=20, color='skyblue', edgecolor='black')
         plt.axvline(x=mean_value_after, color='red',
                     linestyle='--', label='Mean')
         plt.axvline(x=mean_value_after + 3 * stddev_value_after,

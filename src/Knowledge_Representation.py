@@ -53,11 +53,11 @@ class KnowledgeRepresentation:
             mean = data.mean()
             std_dev = data.std()
             ax.axvline(mean, color='r', linestyle='--',
-                       linewidth=2, label='Mean')
+                    linewidth=2, label='Mean')
             ax.axvline(mean + 3 * std_dev, color='g', linestyle='--',
-                       linewidth=2, label='Mean + 3 Std Dev')
+                    linewidth=2, label='Mean + 3 Std Dev')
             ax.axvline(mean - 3 * std_dev, color='g', linestyle='--',
-                       linewidth=2, label='Mean - 3 Std Dev')
+                    linewidth=2, label='Mean - 3 Std Dev')
             ax.legend()
             ax.set_title(f"Histogram of {col}")
             ax.set_xlabel(col)
@@ -95,7 +95,7 @@ class KnowledgeRepresentation:
             row, col_idx = divmod(plot_index, 2)
             plot_histogram(axs[row, col_idx], dataframe[col], col)
             axs[row, col_idx].annotate('Numeric Column', xy=(0.5, 1.175), xycoords='axes fraction',
-                                       ha='center', va='center', fontsize=24, fontweight='bold')
+                                    ha='center', va='center', fontsize=24, fontweight='bold')
             plot_index += 1
 
         # Plot categorical columns
@@ -103,7 +103,7 @@ class KnowledgeRepresentation:
             row, col_idx = divmod(plot_index, 2)
             plot_bar(axs[row, col_idx], dataframe, col)
             axs[row, col_idx].annotate('Categorical Column', xy=(0.5, 1.175), xycoords='axes fraction',
-                                       ha='center', va='center', fontsize=24, fontweight='bold')
+                                    ha='center', va='center', fontsize=24, fontweight='bold')
             plot_index += 1
 
         # Plot boolean columns
@@ -111,7 +111,7 @@ class KnowledgeRepresentation:
             row, col_idx = divmod(plot_index, 2)
             plot_pie(axs[row, col_idx], dataframe, col)
             axs[row, col_idx].annotate('Boolean Column', xy=(0.5, 1.175), xycoords='axes fraction',
-                                       ha='center', va='center', fontsize=24, fontweight='bold')
+                                    ha='center', va='center', fontsize=24, fontweight='bold')
             plot_index += 1
 
         # Plot target column as pie chart in the last available subplot
@@ -193,13 +193,11 @@ class KnowledgeRepresentation:
             if target_is_numeric:
                 sns.scatterplot(x=target, y=col, data=dataframe,
                                 ax=axs[row_idx, col_idx])
-                axs[row_idx, col_idx].set_title(
-                    f'Scatter Plot of {col} by {target}')
+                axs[row_idx, col_idx].set_title(f"Scatter Plot of {col} by {target}")
             else:
                 sns.stripplot(x=target, y=col, data=dataframe,
-                              ax=axs[row_idx, col_idx])
-                axs[row_idx, col_idx].set_title(
-                    f'Strip Plot of {col} by {target}')
+                            ax=axs[row_idx, col_idx])
+                axs[row_idx, col_idx].set_title(f"Strip Plot of {col} by {target}")
             axs[row_idx, col_idx].set_xlabel(target)
             axs[row_idx, col_idx].set_ylabel(col)
             plt.setp(
@@ -214,14 +212,14 @@ class KnowledgeRepresentation:
 
             if target_is_numeric:
                 sns.stripplot(x=col, y=target, data=dataframe,
-                              ax=axs[row_idx, col_idx])
+                            ax=axs[row_idx, col_idx])
                 axs[row_idx, col_idx].set_title(
-                    f'Strip Plot of {target} by {col}')
+                    f"Strip Plot of {target} by {col}")
             else:
                 sns.countplot(x=col, hue=target, data=dataframe,
-                              ax=axs[row_idx, col_idx])
+                            ax=axs[row_idx, col_idx])
                 axs[row_idx, col_idx].set_title(
-                    f'Count Plot of {col} by {target}')
+                    f"Count Plot of {col} by {target}")
             plt.setp(
                 axs[row_idx, col_idx].xaxis.get_majorticklabels(), rotation=90)
             axs[row_idx, col_idx].set_xlabel(col)
@@ -235,15 +233,13 @@ class KnowledgeRepresentation:
 
             if target_is_numeric:
                 sns.stripplot(x=col, y=target, data=dataframe,
-                              ax=axs[row_idx, col_idx])
-                axs[row_idx, col_idx].set_title(
-                    f'Strip Plot of {target} by {col}')
+                            ax=axs[row_idx, col_idx])
+                axs[row_idx, col_idx].set_title(f"Strip Plot of {target} by {col}")
             else:
                 counts = dataframe.groupby(
                     [target, col]).size().unstack().fillna(0)
                 counts.plot(kind='bar', stacked=True, ax=axs[row_idx, col_idx])
-                axs[row_idx, col_idx].set_title(
-                    f'Stacked Bar Plot of {col} by {target}')
+                axs[row_idx, col_idx].set_title(f"Stacked Bar Plot of {col} by {target}")
                 axs[row_idx, col_idx].set_xlabel(target)
                 axs[row_idx, col_idx].set_ylabel('Count')
                 plt.setp(

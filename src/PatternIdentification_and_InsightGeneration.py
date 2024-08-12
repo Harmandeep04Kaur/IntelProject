@@ -178,11 +178,10 @@ class InsightGeneration:
                 col = plot_idx % 2
                 ax = axes[row, col] if num_rows > 1 else axes[col]
                 ax.scatter(pandas_df[columns[feature1]], pandas_df[columns[feature2]],
-                           c=pandas_df['prediction'], cmap='magma')
+                        c=pandas_df['prediction'], cmap='magma')
                 ax.set_xlabel(f"{columns[feature1]}")
                 ax.set_ylabel(f"{columns[feature2]}")
-                ax.set_title(f'KMeans Clustering: {
-                             columns[feature1]} vs {columns[feature2]}')
+                ax.set_title(f"KMeans Clustering: {columns[feature1]} vs {columns[feature2]}")
                 plot_idx += 1
 
         # Hide any unused subplots
